@@ -1,11 +1,11 @@
 #include <cstdio>
 #include <string.h>
 #include <time.h>
-
+// NOT MY WORK !
 #define large 6 		// largeur du jeu
 #define write "%.6s\n"	// affichage d'une ligne
 #define haut  6			// hauteur du jeu
-#define goaly 2			//ligne de sortie du cÈhicule
+#define goaly 2			//ligne de sortie du c√©hicule
 /*
 #define large 5
 #define write "%.5s\n"
@@ -13,19 +13,19 @@
 #define goaly 2
 */
 
-#define large1 large-1	// -1 pour vÈhicule de longueur 2
-#define large2 large-2	// -2 pour vÈhicule de longueur 3 
-#define haut1 haut-1 	// -1 pour vÈhicule de longueur 2
-#define haut2 haut-2  	// -2 pour vÈhicule de longueur 3
+#define large1 large-1	// -1 pour v√©hicule de longueur 2
+#define large2 large-2	// -2 pour v√©hicule de longueur 3 
+#define haut1 haut-1 	// -1 pour v√©hicule de longueur 2
+#define haut2 haut-2  	// -2 pour v√©hicule de longueur 3
 #define entier large*haut	// jeu complet
 
 class vehicle
 {
-	char nom;//le "nom" du vÈhicule
+	char nom;//le "nom" du v√©hicule
 	bool V;//Vertical ou Horizontal
-	char x;//la colonne o˘ va rester le vÈhicule Vertical
-	char y;//la ligne o˘ va rester le vÈhicule Horizontal
-	char len;//la longueur du vÈhicule
+	char x;//la colonne o√π va rester le v√©hicule Vertical
+	char y;//la ligne o√π va rester le v√©hicule Horizontal
+	char len;//la longueur du v√©hicule
 public:
 	vehicle(char name,bool Ve,char xx,char yy,char lon):nom(name),V(Ve),x(xx),y(yy),len(lon){}
 	char getnom(){return nom;}
@@ -42,7 +42,7 @@ class jeu
 	//char ch[entier];};
 public:
 	char getje(char y,char x){return je[y][x];}
-	jeu(char*s)//constructeur avec des "vÈhicules" de A ‡ X et des case vides de '.'
+	jeu(char*s)//constructeur avec des "v√©hicules" de A √† X et des case vides de '.'
 	{
 		memcpy(je,s,entier);
 	}
@@ -51,7 +51,7 @@ public:
 		memcpy(je,jj,entier);
 	}
 	void print()
-	{//on "Ècrit" le jeu ‡ l'Ècran
+	{//on "√©crit" le jeu √† l'√©cran
 		for(char y=0;y<haut;y++)
 		{
 			printf(write,je[y]);
@@ -75,13 +75,13 @@ public:
 		for(char n=0;n<haut;n++)if(je[n][x]==c)return n;
 	}
 	char mouveg(char x,char y)
-	{//retourne le nombre de mouvement ‡ gauche
+	{//retourne le nombre de mouvement √† gauche
 		char g=0;
 		for(char n=x-1;n>=0;n--)if(je[y][n]=='.')g++;else return g;
 		return g;
 	}
 	char mouved(char x,char y,char len)
-	{//retourne le nombre de mouvement ‡ droite
+	{//retourne le nombre de mouvement √† droite
 		char d=0;
 		for(char n=x+len;n<large;n++)if(je[y][n]=='.')d++;else return d;
 		return d;
@@ -99,35 +99,35 @@ public:
 		return b;
 	}
 	void bougeH(char c,char x,char y,char len,char m)
-	{//bouge un "vÈhicule" de m places ‡ l'horizontal
+	{//bouge un "v√©hicule" de m places √† l'horizontal
 		for(char n=0;n<len;n++)je[y][x+n]='.';
 		for(char n=0;n<len;n++)je[y][x+n+m]=c;
 	}
 	void bougeV(char c,char x,char y,char len,char m)
-	{//bouge un "vÈhicule" de m places en vertical
+	{//bouge un "v√©hicule" de m places en vertical
 		for(char n=0;n<len;n++)je[y+n][x]='.';
 		for(char n=0;n<len;n++)je[y+n+m][x]=c;
 	}
 };
 
-char noms[]={//tous les noms possibles des vÈhicules. (Le . dÈsigne une case vide)
+char noms[]={//tous les noms possibles des v√©hicules. (Le . d√©signe une case vide)
 '0','1','2','3','4','5','6','7','8','9',
 'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
 'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',0
 };
 class srush;//provisoirement
-srush*ici;//le jeu de base (au dÈbut)
+srush*ici;//le jeu de base (au d√©but)
 srush*sol[60];// toute la solution
-jeu*mesjeux[400000];//pour stocker les diffÈrents jeux
-int nbj=0;//le nombre de jeux stockÈs dans mesjeux (positions diffÈrentes analysÈes)
-vehicle*vehicles[entier/2];//tous les vÈhicules du jeu
-int nbrpositions=0;//nombre de positions analysÈes au final
-char nbre;//nombre de vÈhicules
-jeu j(noms);//pour bouger une position et la tester (noms ne sert ‡ rien, c'est char[entier] et +)
+jeu*mesjeux[400000];//pour stocker les diff√©rents jeux
+int nbj=0;//le nombre de jeux stock√©s dans mesjeux (positions diff√©rentes analys√©es)
+vehicle*vehicles[entier/2];//tous les v√©hicules du jeu
+int nbrpositions=0;//nombre de positions analys√©es au final
+char nbre;//nombre de v√©hicules
+jeu j(noms);//pour bouger une position et la tester (noms ne sert √† rien, c'est char[entier] et +)
 
-inline bool notdeja()//retourne true si cette position n'existe pas dÈj‡
+inline bool notdeja()//retourne true si cette position n'existe pas d√©j√†
 {
-	for(int n=nbj-1;n>=0;n--)//on essaye toutes les positions prÈcÈdentes
+	for(int n=nbj-1;n>=0;n--)//on essaye toutes les positions pr√©c√©dentes
 	{//on commence par la fin "plus proche" de la position en cours
 		if(memcmp(mesjeux[n],&j,entier)==0)return false;
 	}
@@ -140,17 +140,17 @@ class srush
 	char txt[4];//le mouvement
 	char niveau;//profondeur de recherche
 	srush*parent;//le jeu parent dont celui-ci est issu
-	srush*frere;//toute les possibilitÈs de mouvements (les fils)
+	srush*frere;//toute les possibilit√©s de mouvements (les fils)
 public:
-	srush(char*s):parent(0),frere(0),niveau(0)//construction du jeu avec une String (voir la class jeu) et mise en place des "vÈhicules"
+	srush(char*s):parent(0),frere(0),niveau(0)//construction du jeu avec une String (voir la class jeu) et mise en place des "v√©hicules"
 	{
-		char c;//un vÈhicule
+		char c;//un v√©hicule
 		io=new jeu(s);
 		nbre=0;
-		for(char cc=0;c=noms[cc];cc++)//on essaye tous les "vÈhicules" possibles ‡ partir des noms[]
+		for(char cc=0;c=noms[cc];cc++)//on essaye tous les "v√©hicules" possibles √† partir des noms[]
 			for(char y=0;y<haut;y++)//pour toutes les lignes
 				for(char x=0;x<large;x++)//pour toute la ligne
-					if(io->getje(y,x)==c)//on trouve un vÈhicule
+					if(io->getje(y,x)==c)//on trouve un v√©hicule
 					{
 						if((x<large1)&&(io->getje(y,x+1)==c))
 						{//H
@@ -161,9 +161,9 @@ public:
 							vehicles[nbre++]=new vehicle(c,true,x,y,(y<haut2)&&(io->getje(y+2,x)==c)?3:2);
 						}//else erreur
 						x=large;
-						y=haut;//vÈhicule suivant
+						y=haut;//v√©hicule suivant
 					}
-		mesjeux[nbj++]=io;//on stocke le jeu de dÈpart
+		mesjeux[nbj++]=io;//on stocke le jeu de d√©part
 	}
 	srush(jeu*s):frere(0)//construction du jeu avec un jeu s
 	{
@@ -176,7 +176,7 @@ public:
 		if(frere)delete frere;
 	}
 	void print()
-	{//on Ècrit le jeu "‡ l'Ècran"
+	{//on √©crit le jeu "√† l'√©cran"
 		printf("------ %u %s\n",niveau,txt);
 		io->print();
 	}
@@ -188,7 +188,7 @@ public:
 	}
 	bool test(char niv)//on "teste" le niveau
 	{
-		if(run(niv))return true;//solution trouvÈe
+		if(run(niv))return true;//solution trouv√©e
 		return frere&&frere->test(niv);//pour tous les "frere"
 	}
 	srush*getFrere()
@@ -212,7 +212,7 @@ public:
 	bool run(char niv)
 	{
 		if(niv!=niveau)return false;//pour chaque niveau de profondeur de recherche uniquement
-		for(char nb=0;nb<nbre;nb++)//recherche de mouvements pour tous les vÈhicules
+		for(char nb=0;nb<nbre;nb++)//recherche de mouvements pour tous les v√©hicules
 		{
 			char c=vehicles[nb]->getnom();
 			char len=vehicles[nb]->getlen();
@@ -255,7 +255,7 @@ public:
 	}
 	bool resoud()
 	{
-		for(char n=0;n<50;n++)//‡ priori, il n'y a pas plus de 50 mouvements
+		for(char n=0;n<50;n++)//√† priori, il n'y a pas plus de 50 mouvements
 			if(ici->test(n))
 				return true;
 		return false;
